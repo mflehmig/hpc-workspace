@@ -1,31 +1,33 @@
-# Workspace user guide
+# Workspace Users Guide
 
-for latest version (which might not fit your installation) see
-    https://github.com/holgerBerger/hpc-workspace/blob/master/user-guide.md
+You can read this guide at
+https://github.com/holgerBerger/hpc-workspace/blob/master/user-guide.md
+with markup.
 
+## Motivation
 
-## motivation
+The motivation for these workspace tools was the need to balance the load of a
+large number of users over a medium size number of scratch/working filesystems
+in an HPC environment by the operations team without its any manual interaction.
 
-*workspaces* are a concept allowing the operations team of a hpc resource to offload some
-tasks to the user, and allow the user to keep easier track of jobs directories.
-It also allows the operations team to manage and load balance several filesystems,
-and hiding this fact from the users.
+The *workspace* tools provide an efficient and handy concept for
+data life cycle management on HPC systems. The basic idea is that the users request for
+a workspace directory in a certain file system with expiry date.
+After expiration date the workspace and data are deleted automatically. This forces
+the users to keep track of their data and thus helps to prevent the filesystems from
+uncontrolled fill up.
 
-A *workspace* is formost a directory created on behalf of the user with some properties
-- it has an *ID* selected by the user
+A *workspace* is foremost a directory created on behalf of the user with some properties
+- it has an *Id*  selected by the user
 - it has a lifetime selected by the user, but limited by the operations team
 - it has permissions the user can influence or change
 
 The *workspace* is the place where big data remains during a job or during a job campaign.
 It is probably not the place to store source files, and it is not the place to archive data at.
 
-Any *workspace* will be deleted at some point in time, so better keep track of them.
-But this property makes sure the nasty user from the other side of the floor does not use
-all the space for ages.
+## Creation of a Workspace
 
-## creation of a workspace
-
-A workspace can be created with *ws_allocate*.
+A workspace can be created using the command *ws_allocate*.
 
 Example:
 
@@ -70,10 +72,10 @@ See ```man ws_list``` for a description of all options.
 ## releasing workspaces
 
 ```ws_release <ID>``` releases a workspace.
-Releasing means that the ID can be reused and the directory is not accessible any more, 
+Releasing means that the ID can be reused and the directory is not accessible any more,
 but it does not delete the data immediately.
-The data is probably kept for a while if there is enough space and can be recovered using 
-the ```ws_restore``` command as long as it is not finaly deleted. 
+The data is probably kept for a while if there is enough space and can be recovered using
+the ```ws_restore``` command as long as it is not finaly deleted.
 
 The real deletion will probably take place during the nighttime.
 
